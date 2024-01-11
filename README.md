@@ -34,4 +34,7 @@
 - git config --list
 - git add .
 -  git commit -m 'This is my initial commit'
+- $ git remote add origin https://github.com/sanjayspear/wdio-cucumber-e2e-test.git
+
+- git remote -v
 
