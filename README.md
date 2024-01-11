@@ -28,7 +28,7 @@
 - git branch -u master master
 - git remote set-head origin -a
 
-# Git local commands
+# Git important commands
 - git init
 - git status
 - git config --list
@@ -37,4 +37,12 @@
 - $ git remote add origin https://github.com/sanjayspear/wdio-cucumber-e2e-test.git
 
 - git remote -v
+
+- git checkout -b local
+- git checkout master
+- git checkout local
+- git branch
+- git push -f origin master
+- git branch -u origin/master
+- git status -sb
 
