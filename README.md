@@ -45,4 +45,6 @@
 - git push -f origin master
 - git branch -u origin/master
 - git status -sb
+- git fetch origin master
+- git merge origin/master
 
