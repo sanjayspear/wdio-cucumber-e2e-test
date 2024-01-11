@@ -32,3 +32,6 @@
 - git init
 - git status
 - git config --list
+- git add .
+-  git commit -m 'This is my initial commit'
+
