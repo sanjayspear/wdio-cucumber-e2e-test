@@ -6,5 +6,5 @@ Feature: Web Interactions
         When Perform web interactions
 
         Examples:
-            | TestID     |
+            | TestID    |
             | Web_TC002 |
