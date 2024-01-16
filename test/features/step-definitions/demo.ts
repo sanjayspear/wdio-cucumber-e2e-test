@@ -3,10 +3,11 @@ import { expect } from "chai";
 //import chai from "chai";
 
 Given(/^Google page is opened$/, async function () {
-  console.log("Before Opening The Browser");
+  console.log("Before Opening The Browser...");
   await browser.url("https://www.google.com");
   await browser.pause(3000);
-  console.log("After Opening The Browser");
+  console.log("After Opening The Browser...");
+  //console.log(`>> BrowserObj: ${JSON.stringify(browser)}`);
 });
 
 When(/^Search with (.*)$/, async function (searchItem) {
@@ -14,6 +15,7 @@ When(/^Search with (.*)$/, async function (searchItem) {
   const searchInput = await $("[name=q]");
   await searchInput.setValue(searchItem);
   await browser.keys("Enter");
+  //console.log(`>> EleObj: ${JSON.stringify(searchInput)}`);
 });
 
 Then(/^Click on the first search result$/, async function () {
@@ -23,6 +25,9 @@ Then(/^Click on the first search result$/, async function () {
 
 Then(/^URL should match (.*)$/, async function (expectedURL) {
   console.log(`>> expectedURL: ${expectedURL}`);
+  await browser.waitUntil(async function(){
+    return await browser.getTitle() === "WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO"
+  }, {timeout: 20000, interval: 500, timeoutMsg: `Failed to load WDIO web page: ${await browser.getTitle()}`})
   const currentURL = await browser.getUrl();
   expect(currentURL).to.equal(expectedURL);
 });
@@ -35,7 +40,8 @@ Given(/^A web page is opened$/, async function () {
   //await browser.url("/javascript_alerts");
   //await browser.url("/upload");
   //await browser.url("/frames");
-  await browser.url("/tables");
+  //await browser.url("/tables");
+  await browser.url("https://www.amazon.com.au");
   await browser.setTimeout({ implicit: 15000, pageLoad: 1000 });
   await browser.maximizeWindow();
 });
@@ -250,13 +256,13 @@ When(/^Perform web interactions$/, async function () {
    * 5. Get single cell value [based on another cell]
    */
 
-  //1. Check number of rows and columns
-  let rowCount = await $$(`//table[@id='table1']/tbody/tr`).length;
-  console.log(`>> Number of rows: ${rowCount}`);
-  expect(rowCount).to.equal(4);
-  let colCount = await $$(`//table[@id='table1']//thead/tr/th`).length;
-  console.log(`>> Number of cols: ${colCount}`);
-  expect(colCount).to.equal(6);
+  // //1. Check number of rows and columns
+  // let rowCount = await $$(`//table[@id='table1']/tbody/tr`).length;
+  // console.log(`>> Number of rows: ${rowCount}`);
+  // expect(rowCount).to.equal(4);
+  // let colCount = await $$(`//table[@id='table1']//thead/tr/th`).length;
+  // console.log(`>> Number of cols: ${colCount}`);
+  // expect(colCount).to.equal(6);
 
   //2. Get whole table data
   // let arr = [];
@@ -332,5 +338,26 @@ When(/^Perform web interactions$/, async function () {
   // }
   // console.log(`>> Single col values: ${arr}`);
   
+  // //Scrolling down
+  // await browser.execute(() => {
+  //   window.scrollBy(0, window.innerHeight);
+  // });
+
+  // //Scrolling up
+  // await browser.execute(() => {
+  //   window.scrollBy(0, -window.innerHeight);
+  // });
+
+  // await browser.execute(() => {
+  //   window.scrollTo(0, document.body.scrollHeight);
+  // })
+
+  // await browser.pause(2000);
+
+  // await browser.execute(() => {
+  //   window.scrollTo(0, document.body.scrollTop);
+  // })
+
+  await browser.debug();
   
 });
