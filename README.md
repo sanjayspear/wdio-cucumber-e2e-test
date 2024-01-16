@@ -18,6 +18,15 @@
 # Commands Used
 - npx wdio wdio.conf.ts
 
+# repl command
+The command [npx wdio repl chrome] launches the WebDriverIO REPL (Read-Eval-Print Loop) for the Chrome browser.
+
+# dotenv
+Loads environment variables from .env file
+1. npm install dotenv --save
+2. import 'dotenv/config' //ES6
+3. console.log(process.env)
+
 # Install Chai assertion library
 - $ npm install --save-dev chai
 - npm install --save @types/chai
