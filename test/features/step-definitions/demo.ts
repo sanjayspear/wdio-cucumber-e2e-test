@@ -3,15 +3,15 @@ import { expect } from "chai";
 //import chai from "chai";
 
 Given(/^Google page is opened$/, async function () {
-  console.log("Before Opening The Browser...");
+  //console.log("Before Opening The Browser...");
   await browser.url("https://www.google.com");
   await browser.pause(3000);
-  console.log("After Opening The Browser...");
+  //console.log("After Opening The Browser...");
   //console.log(`>> BrowserObj: ${JSON.stringify(browser)}`);
 });
 
 When(/^Search with (.*)$/, async function (searchItem) {
-  console.log(`>> My search item: ${searchItem}`);
+  //console.log(`>> My search item: ${searchItem}`);
   const searchInput = await $("[name=q]");
   await searchInput.setValue(searchItem);
   await browser.keys("Enter");
@@ -24,7 +24,7 @@ Then(/^Click on the first search result$/, async function () {
 });
 
 Then(/^URL should match (.*)$/, async function (expectedURL) {
-  console.log(`>> expectedURL: ${expectedURL}`);
+  //console.log(`>> expectedURL: ${expectedURL}`);
   await browser.waitUntil(async function(){
     return await browser.getTitle() === "WebdriverIO · Next-gen browser and mobile automation test framework for Node.js | WebdriverIO"
   }, {timeout: 20000, interval: 500, timeoutMsg: `Failed to load WDIO web page: ${await browser.getTitle()}`})
