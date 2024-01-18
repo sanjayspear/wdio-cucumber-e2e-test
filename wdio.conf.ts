@@ -4,7 +4,7 @@ dotenv.config();
 let headless = process.env.HEADLESS;
 let debug = process.env.DEBUG;
 
-console.log(`>> The headless flag: ${headless}`);
+//console.log(`>> The headless flag: ${headless}`);
 
 // export const config: Options.Testrunner = {
 export const config: Options.Testrunner = {
@@ -280,8 +280,8 @@ export const config: Options.Testrunner = {
    * @param {object}                 context  Cucumber World object
    */
   beforeScenario: function (world, context) {
-    console.log(`>>>>>>>>>Before Scenario World Object: ${JSON.stringify(world)}`);
-    console.log(`>>>>>>>>>Before Scenario context Object: ${JSON.stringify(context)}`);
+    //console.log(`>>>>>>>>>Before Scenario World Object: ${JSON.stringify(world)}`);
+    //console.log(`>>>>>>>>>Before Scenario context Object: ${JSON.stringify(context)}`);
     let arr = world.pickle.name.split(/:/);
     // @ts-ignore
     if(arr.length > 0) browser.options.testid = arr[0];
@@ -309,10 +309,10 @@ export const config: Options.Testrunner = {
    * @param {object}             context          Cucumber World object
    */
   afterStep: async function (step, scenario, result, context) {
-    console.log(`>>>>>>>>> STEP: ${JSON.stringify(step)}`);
-    console.log(`>>>>>>>>> SCENARIO: ${JSON.stringify(scenario)}`);
-    console.log(`>>>>>>>>> RESULT: ${JSON.stringify(result)}`);
-    console.log(`>>>>>>>>> CONTEXT: ${JSON.stringify(context)}`);
+    //console.log(`>>>>>>>>> STEP: ${JSON.stringify(step)}`);
+    //console.log(`>>>>>>>>> SCENARIO: ${JSON.stringify(scenario)}`);
+    //console.log(`>>>>>>>>> RESULT: ${JSON.stringify(result)}`);
+    //console.log(`>>>>>>>>> CONTEXT: ${JSON.stringify(context)}`);
 
     //Take Screenshot if failed
     if(!result.passed){

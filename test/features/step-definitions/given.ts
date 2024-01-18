@@ -4,23 +4,23 @@ import { expect } from "chai";
 // @ts-ignore
 Given(/^As (a|an) (.*) User I login to inventory web app$/, async function(prefixTxt, userType, dataTable){
     //Get the testid
-    console.log(`>>>>>>>>> Given Step Test ID: ${this.testid}`);
+    //console.log(`>>>>>>>>> Given Step Test ID: ${this.testid}`);
     //Getting values from data table
     let dt = dataTable.hashes();
-    console.log(`>> The type of dt: ${typeof dt}`); //object
-    console.log(`>> The type of dt: ${dt.constructor}`); //function of array
-    console.log(`>> The value of dt: ${JSON.stringify(dt)}`);
+    //console.log(`>> The type of dt: ${typeof dt}`); //object
+    //console.log(`>> The type of dt: ${dt.constructor}`); //function of array
+    //console.log(`>> The value of dt: ${JSON.stringify(dt)}`);
 
-    console.log(`>> The UserType: ${userType}`);
+    //console.log(`>> The UserType: ${userType}`);
     //Launch browser and Open url
     // @ts-ignore
-    console.log('Console_URL:', browser.options.sauseDemoURL);
+    //console.log('Console_URL:', browser.options.sauseDemoURL);
     // @ts-ignore
     await browser.url(browser.options.sauseDemoURL);
     //await browser.setTimeout({implicit: 15000, pageLoad: 10000});
 
-    console.log(`Test UserName: ${process.env.TEST_PROBLEM_USERNAME}`);
-    console.log(`Test Password: ${process.env.TEST_PROBLEM_PASSOWRD}`);
+    //console.log(`Test UserName: ${process.env.TEST_PROBLEM_USERNAME}`);
+    //console.log(`Test Password: ${process.env.TEST_PROBLEM_PASSOWRD}`);
     //Login to the inventory application
     try {
         //await $(`#user-name`).setValue(process.env.TEST_PROBLEM_USERNAME);
@@ -28,7 +28,7 @@ Given(/^As (a|an) (.*) User I login to inventory web app$/, async function(prefi
         await $(`#password`).setValue(process.env.TEST_PROBLEM_PASSOWRD);
         await $(`#login-button`).click();
     } catch (err) {
-        console.log(`Error while login. Retrying..`);
+        //console.log(`Error while login. Retrying..`);
         await browser.refresh();
         await browser.pause(2000);
         await $(`#user-name`).setValue(process.env.TEST_PROBLEM_USERNAME);
