@@ -1,8 +1,10 @@
 import { Then } from "@wdio/cucumber-framework";
 import { expect } from "chai";
+import logger from "../../helper/logger.ts";
 
 // @ts-ignore
 Then(/^Inventory page (.*)\s? list (.*) products$/, async function (negativeCheck, noOfProducs) {
+   logger.info(`${this.testid}: Checking the product list...`);
     //Fail the test intentionally
     //throw Error(`>>> Failed`);
     //console.log(`>>>>>>>>> Given Step Test ID shared with Then Step: ${this.testid}`);
@@ -20,6 +22,7 @@ Then(/^Inventory page (.*)\s? list (.*) products$/, async function (negativeChec
  * 3. Assert if any value is <=0
  */
 Then(/^Validate all products have valid price$/, async function () {
+  logger.info(`${this.testid}: Checking the product price...`);
   //1. Get price list
   let priceList = await $$(`.inventory_item_price`);
   let priceArr = [];

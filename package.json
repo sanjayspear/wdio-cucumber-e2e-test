@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test:debug": "cross-env && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo'",
+    "test:debug": "cross-env && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo' > output.txt",
     "test:demo": "cross-env && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@demo'",
     "test:smoke": "cross-env && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@smoke'",
     "uat:debug": "cross-env && npx wdio config/wdio.test.conf.ts --cucumberOpts.tagExpression='@smoke'",
@@ -30,7 +30,8 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "winston": "^3.11.0"
   },
   "dependencies": {
     "@types/chai": "^4.3.11"
