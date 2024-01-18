@@ -1,8 +1,14 @@
-import type { Options } from '@wdio/types'
-import dotenv from "dotenv"
-dotenv.config()
+import { Options } from "@wdio/types";
+import dotenv from "dotenv";
+dotenv.config();
+let headless = process.env.HEADLESS;
+let debug = process.env.DEBUG;
 
+console.log(`>> The headless flag: ${headless}`);
+
+// export const config: Options.Testrunner = {
 export const config: Options.Testrunner = {
+
   //
   // ====================
   // Runner Configuration
@@ -61,14 +67,39 @@ export const config: Options.Testrunner = {
   //
   capabilities: [
     {
+      /**
+       * "--disable-web-security",
+       *  "--headless",
+       *  "--disable-dev-shm-usage",
+       *  "--no-sandbox",
+       *  "--window-size=1920,1000",
+       *  "--disable-gpu",
+       *  "--proxy-server=http://domain-name",
+       *  "binary=<location>",
+       *  --auth-server-whitelist="_"
+       */
       maxInstances: 3,
+
       browserName: "chrome",
+      "goog:chromeOptions": {
+        args: headless === "Y"
+            ? [
+                "--disable-web-security",
+                "--headless",
+                "--disable-dev-shm-usage",
+                "--no-sandbox",
+                "--window-size=1920,1000",
+              ]
+            : [],
+      },
       acceptInsecureCerts: true,
+
       timeouts: {
         implicit: 5000,
         pageLoad: 20000,
         script: 30000,
       },
+       // Use the values from the test configuration 
     },
   ],
 
@@ -79,7 +110,7 @@ export const config: Options.Testrunner = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: "error",
+  logLevel: debug.toUpperCase() === "Y"? 'info' : 'error',
   //
   // Set specific log levels per logger
   // loggers:
@@ -222,8 +253,10 @@ export const config: Options.Testrunner = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    browser.options["environment"] = capabilities[0].environment;
+    browser.options["sauseDemoURL"] = capabilities[0].sauseDemoURL;
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {string} commandName hook command name
@@ -246,8 +279,15 @@ export const config: Options.Testrunner = {
    * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
    * @param {object}                 context  Cucumber World object
    */
-  // beforeScenario: function (world, context) {
-  // },
+  beforeScenario: function (world, context) {
+    console.log(`>>>>>>>>>Before Scenario World Object: ${JSON.stringify(world)}`);
+    console.log(`>>>>>>>>>Before Scenario context Object: ${JSON.stringify(context)}`);
+    let arr = world.pickle.name.split(/:/);
+    // @ts-ignore
+    if(arr.length > 0) browser.options.testid = arr[0];
+    // @ts-ignore
+    if(!browser.options.testid) throw Error(`Error getting test if for the current scenario: ${world.pickle.name}`);
+  },
   /**
    *
    * Runs before a Cucumber Step.
@@ -268,8 +308,17 @@ export const config: Options.Testrunner = {
    * @param {number}             result.duration  duration of scenario in milliseconds
    * @param {object}             context          Cucumber World object
    */
-  // afterStep: function (step, scenario, result, context) {
-  // },
+  afterStep: async function (step, scenario, result, context) {
+    console.log(`>>>>>>>>> STEP: ${JSON.stringify(step)}`);
+    console.log(`>>>>>>>>> SCENARIO: ${JSON.stringify(scenario)}`);
+    console.log(`>>>>>>>>> RESULT: ${JSON.stringify(result)}`);
+    console.log(`>>>>>>>>> CONTEXT: ${JSON.stringify(context)}`);
+
+    //Take Screenshot if failed
+    if(!result.passed){
+      await browser.takeScreenshot();
+    }
+  },
   /**
    *
    * Runs after a Cucumber Scenario.

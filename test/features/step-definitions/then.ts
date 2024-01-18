@@ -1,7 +1,12 @@
 import { Then } from "@wdio/cucumber-framework";
 import { expect } from "chai";
 
-Then(/^Inventory page should list (.*) products$/, async function (noOfProducs) {
+// @ts-ignore
+Then(/^Inventory page (.*)\s? list (.*) products$/, async function (negativeCheck, noOfProducs) {
+    //Fail the test intentionally
+    //throw Error(`>>> Failed`);
+    console.log(`>>>>>>>>> Given Step Test ID shared with Then Step: ${this.testid}`);
+    console.log(`>>>>>>>>>>THE APP ID IS: ${this.appid}`);
     if (!noOfProducs) throw Error(`Invalid product count: ${noOfProducs}`);
     let eleArr = await $$(`.inventory_item_name`);
     expect(eleArr.length).to.equal(parseInt(noOfProducs));
