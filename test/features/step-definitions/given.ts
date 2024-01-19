@@ -1,10 +1,14 @@
 import { Given } from "@wdio/cucumber-framework";
 import { expect } from "chai";
-import logger from "../../helper/logger.js";
+//import logger from "../../helper/logger.js";
+//import allure from "@wdio/allure-reporter";
+import reporter from "../../helper/reporter.js";
 
 // @ts-ignore
 Given(/^As (a|an) (.*) User I login to inventory web app$/, async function(prefixTxt, userType, dataTable){
-    logger.info(`${this.testid}: Started to login sause demo app...`);
+    reporter.addStep(this.testid, "info", "Login to sause demo app");
+    //logger.info(`${this.testid}: Started to login sause demo app...`); //This is for console
+    //allure.addStep(`${this.testid}: Started to login sause demo app...`); // this one is for allure
     //Get the testid
     //console.log(`>>>>>>>>> Given Step Test ID: ${this.testid}`);
     //Getting values from data table
@@ -58,4 +62,7 @@ Given(/^As (a|an) (.*) User I login to inventory web app$/, async function(prefi
     //await browser.debug();
 
     this.appid = "ABC123";
+    //logger.info(`${this.testid}: Successfully logged into the sause demo app...`);
+    //allure.addStep(`${this.testid}: Successfully logged into the sause demo app...`);
+    reporter.addStep(this.testid, "info", "Login is successful...");
 });

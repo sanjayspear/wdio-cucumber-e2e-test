@@ -1,4 +1,7 @@
+// @ts-nocheck
 import { Options } from "@wdio/types";
+import allure from "@wdio/allure-reporter";
+import fs from "fs";
 import dotenv from "dotenv";
 dotenv.config();
 let headless = process.env.HEADLESS;
@@ -8,7 +11,6 @@ let debug = process.env.DEBUG;
 
 // export const config: Options.Testrunner = {
 export const config: Options.Testrunner = {
-
   //
   // ====================
   // Runner Configuration
@@ -81,8 +83,10 @@ export const config: Options.Testrunner = {
       maxInstances: 3,
 
       browserName: "chrome",
+      //environment: "TEST",
       "goog:chromeOptions": {
-        args: headless === "Y"
+        args:
+          headless === "Y"
             ? [
                 "--disable-web-security",
                 "--headless",
@@ -99,7 +103,7 @@ export const config: Options.Testrunner = {
         pageLoad: 20000,
         script: 30000,
       },
-       // Use the values from the test configuration 
+      // Use the values from the test configuration
     },
   ],
 
@@ -110,7 +114,7 @@ export const config: Options.Testrunner = {
   // Define all options that are relevant for the WebdriverIO instance here
   //
   // Level of logging verbosity: trace | debug | info | warn | error | silent
-  logLevel: debug.toUpperCase() === "Y"? 'info' : 'error',
+  logLevel: debug.toUpperCase() === "Y" ? "info" : "error",
   //
   // Set specific log levels per logger
   // loggers:
@@ -173,7 +177,7 @@ export const config: Options.Testrunner = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ["spec", ["allure", { outputDir: "allure-results" }]],
+  reporters: ["spec", ["allure", { outputDir: "allure-results", disableWebdriverStepsReporting: true, useCucumberStepReporter: true }]],
 
   // If you are using Cucumber you need to specify the location of your step definitions.
   cucumberOpts: {
@@ -214,8 +218,11 @@ export const config: Options.Testrunner = {
    * @param {object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+    if(process.env.RUNNER === "local" && fs.existsSync("./allure-results")){
+      fs.rmdirSync("./allure-results", {recursive: true});
+    }
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialize specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -256,6 +263,8 @@ export const config: Options.Testrunner = {
   before: function (capabilities, specs) {
     browser.options["environment"] = capabilities[0].environment;
     browser.options["sauseDemoURL"] = capabilities[0].sauseDemoURL;
+    //browser.options["environment"] = config.environment;
+    //browser.options["sauseDemoURL"] = config.sauseDemoURL;
   },
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -284,9 +293,12 @@ export const config: Options.Testrunner = {
     //console.log(`>>>>>>>>>Before Scenario context Object: ${JSON.stringify(context)}`);
     let arr = world.pickle.name.split(/:/);
     // @ts-ignore
-    if(arr.length > 0) browser.options.testid = arr[0];
+    if (arr.length > 0) browser.options.testid = arr[0];
     // @ts-ignore
-    if(!browser.options.testid) throw Error(`Error getting test if for the current scenario: ${world.pickle.name}`);
+    if (!browser.options.testid)
+      throw Error(
+        `Error getting test if for the current scenario: ${world.pickle.name}`
+      );
   },
   /**
    *
@@ -315,7 +327,7 @@ export const config: Options.Testrunner = {
     //console.log(`>>>>>>>>> CONTEXT: ${JSON.stringify(context)}`);
 
     //Take Screenshot if failed
-    if(!result.passed){
+    if (!result.passed) {
       await browser.takeScreenshot();
     }
   },
@@ -337,8 +349,10 @@ export const config: Options.Testrunner = {
    * @param {string}                   uri      path to feature file
    * @param {GherkinDocument.IFeature} feature  Cucumber feature object
    */
-  // afterFeature: function (uri, feature) {
-  // },
+  afterFeature: function (uri, feature) {
+    // Add more env details
+    allure.addEnvironment("Environment: ", browser.options.environment);
+  },
 
   /**
    * Runs after a WebdriverIO command gets executed
