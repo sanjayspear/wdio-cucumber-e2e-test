@@ -31,6 +31,19 @@ Loads environment variables from .env file
 - $ npm install --save-dev chai
 - npm install --save @types/chai
 
+# Install allure command line to generate allure report
+
+- npm install -g allure-commandline
+- If allure report not seems to be working on vs code the chage the powershell script execution policy, open powershell with admin rights
+  and then execute the following command:
+
+  - Set-ExecutionPolicy RemoteSigned
+
+- Restart your vs code
+- check allure version: allure --version
+- Execute the following command and generate the allure report:
+  - allure serve
+
 # Git Commands and Workflow
 
 This README outlines a sequence of Git commands for setting up a new repository, making changes, and syncing with a remote repository.
