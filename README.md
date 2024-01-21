@@ -44,6 +44,30 @@ Loads environment variables from .env file
 - Execute the following command and generate the allure report:
   - allure serve
 
+# NPM Commands
+
+## Clean npm cache
+- `npm cache clean --force`
+
+## Remove node_modules and package-lock.json
+- `rm -rf node_modules`
+- `rm package-lock.json`
+
+## Install dependencies again
+- `npm install`
+
+## Update WebDriverIO
+- `npm install @wdio/cli@latest --save-dev`
+- `npx wdio --version`
+
+## Check node version
+- `node -v`
+
+## Reinstall Dependencies
+- `rm -rf node_modules`
+- `npm install -g ts-node@latest`
+
+
 # Git Commands and Workflow
 
 This README outlines a sequence of Git commands for setting up a new repository, making changes, and syncing with a remote repository.

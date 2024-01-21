@@ -1,4 +1,4 @@
-import allure, { addLabel } from "@wdio/allure-reporter";
+import allure from "@wdio/allure-reporter";
 import logger from "../helper/logger.js";
 
 /**
@@ -42,6 +42,8 @@ function addStep(
       //allure.addIssue(issueid)}
       const jiraUrl = `https://your-jira-instance-url/browse/${issueid}`;
       //allure.addIssue(`${issueid}: ${jiraUrl}`);
+      //allure.addLabel(`Environment`, `${process.env.ENVIRONMENT}`);
+      allure.addDescription(`Environment: ${process.env.ENVIRONMENT}`, "");
       allure.addLabel('severity', severityType);
       allure.addLabel('owner', 'SANJAY Y M');
       allure.addLink(`${"JIRA_ID"} : ${jiraUrl}`);
