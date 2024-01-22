@@ -59,7 +59,6 @@ class HomePage extends Page {
         } catch (err) {
             throw err;
         }
-
     }
 }
 
