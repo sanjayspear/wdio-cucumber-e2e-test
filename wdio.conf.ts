@@ -262,10 +262,10 @@ export const config: Options.Testrunner = {
    * @param {object}         browser      instance of created browser/device session
    */
   before: function (capabilities, specs) {
-    browser.options["environment"] = capabilities[0].environment;
-    browser.options["sauseDemoURL"] = capabilities[0].sauseDemoURL;
-    //browser.options["environment"] = config.environment;
-    //browser.options["sauseDemoURL"] = config.sauseDemoURL;
+    //browser.options["environment"] = capabilities[0].environment;
+    //browser.options["sauseDemoURL"] = capabilities[0].sauseDemoURL;
+    browser.options["environment"] = config.environment;
+    browser.options["sauseDemoURL"] = config.sauseDemoURL;
   },
   /**
    * Runs before a WebdriverIO command gets executed.
@@ -350,9 +350,9 @@ export const config: Options.Testrunner = {
    * @param {string}                   uri      path to feature file
    * @param {GherkinDocument.IFeature} feature  Cucumber feature object
    */
-  afterFeature: function (uri, feature) {
+  afterFeature:  function (uri, feature) {
     // Add more env details
-    allure.addEnvironment("Environment: ", browser.options.environment);
+    //allure.addLabel("Environment", `${process.env.ENVIRONMENT}`);
   },
 
   /**

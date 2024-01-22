@@ -44,9 +44,41 @@ Loads environment variables from .env file
 - Execute the following command and generate the allure report:
   - allure serve
 
+# NPM Commands
+
+## Clean npm cache
+- `npm cache clean --force`
+
+## Remove node_modules and package-lock.json
+- `rm -rf node_modules`
+- `rm package-lock.json`
+
+## Install dependencies again
+- `npm install`
+
+## Update WebDriverIO
+- `npm install @wdio/cli@latest --save-dev`
+- `npx wdio --version`
+
+## Check node version
+- `node -v`
+
+## Reinstall Dependencies
+- `rm -rf node_modules`
+- `npm install -g ts-node@latest`
+
+## File encoding check
+- `file -i yourfile.ts`
+
+## Usage:
+
+command is used to inspect and determine the encoding of a file named `yourfile.ts`. This is particularly useful when working with text files, such as TypeScript files, as it helps ensure that the correct encoding is applied.
+
+```bash
+- file -i yourfile.ts
+
 # Git Commands and Workflow
 
-This README outlines a sequence of Git commands for setting up a new repository, making changes, and syncing with a remote repository.
 
 ## Initial Setup
 

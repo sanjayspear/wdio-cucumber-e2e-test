@@ -21,6 +21,7 @@
   "author": "Sanjay",
   "license": "ISC",
   "devDependencies": {
+    "@types/supertest": "^6.0.2",
     "@wdio/allure-reporter": "^8.28.6",
     "@wdio/cli": "^8.27.1",
     "@wdio/cucumber-framework": "^8.27.1",
@@ -30,6 +31,8 @@
     "chai": "^5.0.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.3.1",
+    "global-tunnel-ng": "^2.7.1",
+    "supertest": "^6.3.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "winston": "^3.11.0"
